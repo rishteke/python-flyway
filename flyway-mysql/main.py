@@ -13,12 +13,30 @@ def main():
         "-s", "--schema" ,
         dest="schema", 
         help="schema used in flyway commandline changes")
+    parser.add_argument(
+        "-db", "--database" ,
+        dest="database", 
+        help="database used in flyway commandline changes")
+    parser.add_argument(
+            "-fc", "--flyway_command" ,
+            dest="flyway_command", 
+            help="flyway_command used in flyway commandline changes")
 
 
     args = parser.parse_args()
 
     env_vars = construct_params(args)
-    command_list = ["docker", "run", "--rm", "-v", "/home/ubuntu/flyway-test/MYSQL:/flyway/sql", "-v", "/home/ubuntu/flyway-test/jars:/flyway/drivers", "flyway/flyway", "-url=jdbc:mysql://172.18.96.1:3306/?db=flywaydbtest", "-schemas=test1", "-user=root", "-password=root","migrate"
+    print(f"\n________________{env_vars}\n")
+    print(f"\n________________{'-url=jdbc:mysql://'+env_vars['DB_HOSTNAME']+':3306/?db='+env_vars['database']}\n")
+
+    command_list = [
+        "docker", "run", "--rm", 
+        "-v", "/home/ubuntu/python-flyway/scripts:/flyway/sql",
+        "-v", "/home/ubuntu/python-flyway/jars:/flyway/drivers", 
+        "flyway/flyway", "-url=jdbc:mysql://"+env_vars['DB_HOSTNAME']+":3306/?db="+env_vars['database'] , 
+        "-schemas="+env_vars['schema'],
+        "-user=root", 
+        "-password=root",env_vars["flyway_command"]
  ]
 
     proc = subprocess.Popen(command_list)

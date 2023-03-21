@@ -11,8 +11,14 @@ setup :
 	_venv/bin/pip install -r requirements.txt
 	echo "installed packages"
 
-run:
-	_venv/bin/python3.10 -m flyway-mysql
+migrate:
+	_venv/bin/python3.10 -m flyway-mysql -d flywaydbtest -s test1 -fc migrate 
+
+repair:
+	_venv/bin/python3.10 -m flyway-mysql -d flywaydbtest -s test1 -fc repair 
+
+info:
+	_venv/bin/python3.10 -m flyway-mysql -d flywaydbtest -s test1 -fc info
 
 options:
 	_venv/bin/python3.10 -m flyway-mysql -h

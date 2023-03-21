@@ -32,7 +32,10 @@ def construct_params(cmd_arguments):
     print(f"db_vars {db_vars}")
 
     env_var['schema'] = cmd_arguments.schema if cmd_arguments.schema else "public"
-    # env_var['flyway_command'] = cmd_arguments.flyway_command if cmd_arguments.flyway_command else "migrate" 
-    print(f"env_var {env_var}")
+    env_var['database'] = cmd_arguments.database if cmd_arguments.schema else "dual"
 
+    # env_var['flyway_command'] = cmd_arguments.flyway_command if cmd_arguments.flyway_command else "migrate" 
+    
+    env_var['flyway_command'] =  cmd_arguments.flyway_command if cmd_arguments.flyway_command else "info" 
+    print(f"env_var {env_var}")
     return {**env_var, **db_vars} 
