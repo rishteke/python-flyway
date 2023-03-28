@@ -2,3 +2,4 @@
 jars/*.jar
 **/__pycache__/
 _venv
+scripts/adventureworks

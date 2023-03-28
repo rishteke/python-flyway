@@ -1,0 +1,11 @@
+CREATE TABLE MyTable1 (
+    MyColumn1 VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE MyTable2 (
+    MyColumn2 VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE MyTable3 (
+    MyColumn3 VARCHAR(100) NOT NULL
+);
