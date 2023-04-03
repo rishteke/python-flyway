@@ -25,7 +25,7 @@ info:
 	_venv/bin/python3.10 -m flyway-wrapper -d flywaydbtest -s test1 -fc info
 
 baseline:
-	_venv/bin/python3.10 -m flyway-wrapper -d flywaydbtest -s test1 -fc baseline
-
+	_venv/bin/python3.10 -m flyway-wrapper -d adventureworks -s adventureworks -fc baseline
+	echo " Above command is only executed in local mode as its creates new folder with files . Make sure push your changes to git."
 options:
 	_venv/bin/python3.10 -m flyway-wrapper -h

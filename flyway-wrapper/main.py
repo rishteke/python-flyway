@@ -1,6 +1,7 @@
 
 from argparse import ArgumentParser
 from .config import construct_params
+from .existing_db import extract_ddl
 import subprocess
 import sys
 
@@ -32,6 +33,9 @@ def main():
 
     if env_vars["flyway_command"] == 'baseline':
         print(" its not implemented yet ")
+        extract_ddl(env_vars)
+        print(" worked  ")
+
         sys.exit(0)
     
     
