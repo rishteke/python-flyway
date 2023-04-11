@@ -32,22 +32,29 @@ def main():
     print(f"\n________________{'-url=jdbc:mysql://'+env_vars['DB_HOSTNAME']+':3306/?db='+env_vars['database']}\n")
 
     if env_vars["flyway_command"] == 'baseline':
-        print(" its not implemented yet ")
-        extract_ddl(env_vars)
-        print(" worked  ")
-
-        sys.exit(0)
-    
-    
-    command_list = [
-        "docker", "run", "--rm", 
-        "-v", "/home/ubuntu/python-flyway/scripts/"+env_vars['database']+":/flyway/sql",
-        "-v", "/home/ubuntu/python-flyway/jars:/flyway/drivers", 
-        "flyway/flyway", "-url=jdbc:mysql://"+env_vars['DB_HOSTNAME']+":3306/?db="+env_vars['database'] , 
-        "-schemas="+env_vars['schema'],
-        "-user=root", 
-        "-password=root",env_vars["flyway_command"]
- ]
+        command_list = [
+            "docker", "run", "--rm", 
+            "-v", "/home/ubuntu/python-flyway/scripts/"+env_vars['database']+":/flyway/sql",
+            "-v", "/home/ubuntu/python-flyway/jars:/flyway/drivers", 
+            "flyway/flyway", "-url=jdbc:mysql://"+env_vars['DB_HOSTNAME']+":3306/?db="+env_vars['database'] , 
+            "-schemas="+env_vars['schema'],
+            "-user=root", 
+            "-password=root",
+            "-baselineVersion=1",
+            "-baselineDescription=initial_version",
+            "baseline"
+        ]
+         
+    else :
+        command_list = [
+            "docker", "run", "--rm", 
+            "-v", "/home/ubuntu/python-flyway/scripts/"+env_vars['database']+":/flyway/sql",
+            "-v", "/home/ubuntu/python-flyway/jars:/flyway/drivers", 
+            "flyway/flyway", "-url=jdbc:mysql://"+env_vars['DB_HOSTNAME']+":3306/?db="+env_vars['database'] , 
+            "-schemas="+env_vars['schema'],
+            "-user=root", 
+            "-password=root",env_vars["flyway_command"]
+        ]
 
     proc = subprocess.Popen(command_list)
     try:
@@ -59,21 +66,6 @@ def main():
         print(f"errs {errs}")
         print(f"outs {outs}")
         print(f"args file {env_vars}")
-
-
-    # try:
-    #     #         import shlex, subprocess
-    #     # command_line = input()
-    #     # /bin/vikings -input eggs.txt -output "spam spam.txt" -cmd "echo '$MONEY'"
-    #     # args = shlex.split(command_line)
-    #     # print(args)
-    #     # ['/bin/vikings', '-input', 'eggs.txt', '-output', 'spam spam.txt', '-cmd', "echo '$MONEY'"]
-    #     # p = subprocess.Popen(args) # Success!
-    #     print("first line")
-    #     print(f"args {args}")
-    #     print(f"args file {env_vars}")
-    # except e:
-    #     raise e
 
     
 

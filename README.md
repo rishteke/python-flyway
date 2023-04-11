@@ -1,12 +1,31 @@
 # python-flyway
 
-## Python project for running docker flyway command for mysql database migration.
+## Python wrapper project for running docker flyway command for mysql database migration.
+
+### Prerequisites
+
+1. Docker
+
+2. Latest Flyway docker image.
+
+3. Mysql JDBC driver
 
 
+For existing mysql database.
 
- flyway -url=jdbc:postgresql://localhost:5432/codingChallenge-220404
-       -user=postgres 
-       -password=postgres 
-       -baselineVersion=1 
-       -baselineDescription=initial_version 
-       baseline
+1. mysqldump utility. 
+
+ 
+
+### Setup
+
+`make setup`
+
+
+Check all the options using command
+
+`make help`
+
+Example : Migrate changes to database 
+
+`make migrate database=DATABASE_NAME schema=SCHEMA_NAME`
