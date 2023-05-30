@@ -19,6 +19,7 @@ setup :
 	echo " installing packages";
 	_venv/bin/pip install -r requirements.txt
 	echo "installed packages"
+	docker ps
 
 migrate:
 	_venv/bin/python3.10 -m flyway-wrapper -d $(database) -s $(schema) -fc migrate 
@@ -47,7 +48,7 @@ endif
 baseline: ddl_dump
 	@echo "initial dump completed . !! "
 	@echo "Folder present $(database) "
-	# _venv/bin/python3.10 -m flyway-wrapper -d $(database) -s $(schema) -fc baseline
+	_venv/bin/python3.10 -m flyway-wrapper -d $(database) -s $(schema) -fc baseline
 	echo " Above command is only executed in local mode as its creates new folder with files . Make sure push your changes to git."
 
 options:
